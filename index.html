@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
-<head>
+<html lang="ru"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Бар-тренажёр · Сердце</title>
@@ -65,6 +64,25 @@
   .actions { display: flex; gap: 10px; margin-top: 14px; }
   .actions button { flex: 1; padding: 14px; border-radius: 12px; }
 
+  /* ====== STUDY (accordion) ====== */
+  .study-list { display: flex; flex-direction: column; gap: 10px; }
+  .study-item {
+    background: var(--card); border-radius: var(--radius);
+    border: 1px solid #332b25; overflow: hidden;
+  }
+  .study-header {
+    width: 100%; background: transparent; border: 0; border-radius: 0;
+    padding: 16px 18px; text-align: left; color: var(--text);
+    font: inherit; font-size: 17px; font-weight: 600;
+    display: flex; justify-content: space-between; align-items: center; cursor: pointer;
+  }
+  .study-header:hover { background: rgba(255,255,255,.03); border-color: transparent; }
+  .study-arrow { color: var(--gold); font-size: 16px; }
+  .study-body { padding: 0 18px 18px; }
+  .study-body h2 { text-align: left; font-size: 20px; margin: 6px 0 6px; }
+  .study-body p { color: #ddd3c7; line-height: 1.6; }
+  .study-body .serve { margin-top: 4px; }
+
   /* ====== INGREDIENT ROWS ====== */
   .ing-list { display: flex; flex-direction: column; gap: 8px; }
   .ing-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
@@ -74,23 +92,18 @@
     background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12);
     padding: 4px 10px; border-radius: 999px; white-space: nowrap;
   }
-
-  /* Pill (strong alcohol: filled) */
   .pill {
     display: inline-flex; align-items: center; gap: 6px;
     padding: 6px 14px; border-radius: 999px; font-weight: 600; font-size: 15px;
     border: 2px solid transparent;
   }
-  /* Syrup (outlined only) */
   .pill.outline { background: transparent !important; }
 
-  /* Heart */
   .heart-wrap { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; }
   .heart-icon { width: 30px; height: 28px; flex-shrink: 0; position: relative; display:inline-flex; align-items:center; justify-content:center; }
   .heart-icon svg { width: 100%; height: 100%; }
   .heart-icon .emo { position: absolute; font-size: 12px; top: 5px; }
 
-  /* Circle (water-based drinks) */
   .circ-wrap { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; }
   .circ {
     width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
@@ -106,20 +119,19 @@
     font-size: 12px; color: #fff;
   }
 
-  /* Triangle (additives) */
   .tri-wrap { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; }
   .tri-icon { width: 30px; height: 28px; flex-shrink: 0; position: relative; display:inline-flex; align-items:center; justify-content:center; }
   .tri-icon svg { width: 100%; height: 100%; }
   .tri-icon .emo { position: absolute; font-size: 12px; top: 10px; }
 
-  /* Ice / glass etc */
   .serve { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
   .chip {
     display: inline-flex; align-items: center; gap: 6px;
     background: var(--card2); border: 1px solid #3a322c;
     padding: 6px 12px; border-radius: 999px; font-size: 14px; color: #ddd3c7;
   }
-  .chip.heart-chip { border-color: #8a3a3a; }
+  .chip.kadry { border-color: #5b7a8a; }
+  .chip.serdtse { border-color: #8a3a3a; }
 
   /* Layers */
   .layers-wrap { display: flex; align-items: flex-end; gap: 14px; margin-top: 6px; }
@@ -138,10 +150,9 @@
   }
   .legend-row { display: flex; align-items: center; gap: 10px; }
 
-  /* Quiz */
+  /* Editor / quiz container */
   .quiz { background: var(--card); border-radius: var(--radius); padding: 22px; border: 1px solid #332b25; }
-  .quiz h2 { margin: 0 0 12px; text-align: center; font-size: 28px; }
-  textarea, input[type=text], select {
+  textarea, input[type=text], input[type=number], select {
     width: 100%; background: var(--card2); color: var(--text);
     border: 1px solid #3a322c; border-radius: 12px; padding: 12px;
     font: inherit; margin-top: 6px;
@@ -170,6 +181,38 @@
   .ed-ing select { flex: 2; margin-top: 0; }
   .ed-ing input { flex: 1; margin-top: 0; }
   .ed-ing button { padding: 8px 12px; }
+
+  /* Editor layer rows */
+  .ed-layer { display: flex; gap: 6px; margin-top: 6px; align-items: center; }
+  .ed-layer input[type=color] {
+    flex: 0 0 46px; height: 42px; padding: 2px; border-radius: 8px;
+    background: var(--card2); border: 1px solid #3a322c; cursor: pointer; margin-top: 0;
+  }
+  .ed-layer input[type=number] { flex: 0 0 76px; margin-top: 0; }
+  .ed-layer input[type=text] { flex: 1; margin-top: 0; }
+  .ed-layer button { padding: 8px 12px; }
+
+  /* Ingredient manager */
+  .im-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 6px 0; }
+  .im-row .btns { display: flex; gap: 6px; }
+  .im-row .btns button { padding: 6px 12px; font-size: 14px; }
+
+  /* Congrats modal */
+  .overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,.72);
+    display: flex; align-items: center; justify-content: center; z-index: 1000;
+    padding: 20px;
+  }
+  .overlay.hidden { display: none; }
+  .modal {
+    background: var(--card); border-radius: var(--radius); padding: 28px 22px;
+    max-width: 400px; width: 100%; text-align: center; border: 1px solid #3a322c;
+  }
+  .modal .emoji { font-size: 52px; line-height: 1; }
+  .modal h2 { margin: 12px 0 10px; color: var(--gold); font-size: 22px; }
+  .modal p { margin: 0 0 22px; line-height: 1.5; }
+  .modal .actions { display: flex; flex-direction: column; gap: 8px; margin: 0; }
+  .modal .actions button { padding: 12px; border-radius: 12px; }
 </style>
 </head>
 <body>
@@ -178,16 +221,21 @@
 
   <div class="tabs" id="cats"></div>
   <div class="modes" id="modes">
-    <button data-mode="cards" class="active">Карточки</button>
-    <button data-mode="quiz">Тест</button>
-    <button data-mode="list">Рецепты</button>
+    <button data-mode="study" class="active">Изучить рецепты</button>
+    <button data-mode="cards">Проверь себя</button>
+    <button data-mode="list" class="">Рецепты</button>
   </div>
 
   <div class="stats" id="stats"></div>
-  <div class="progress"><div id="bar"></div></div>
+  <div class="progress"><div id="bar" style="width: 0px;"></div></div>
 
-  <!-- Cards -->
-  <div id="view-cards">
+  <!-- Study -->
+  <div id="view-study" class="">
+    <div class="study-list" id="studyList"></div>
+  </div>
+
+  <!-- Check yourself -->
+  <div id="view-cards" class="hidden">
     <div class="card" id="card" onclick="flip()"></div>
     <div class="actions" id="cardActions" style="display:none">
       <button class="bad" onclick="mark(false)">Не знаю</button>
@@ -200,26 +248,60 @@
     <div class="footer"><button class="ghost" onclick="resetProgress()">Сбросить прогресс</button></div>
   </div>
 
-  <!-- Quiz -->
-  <div id="view-quiz" class="hidden">
-    <div class="quiz">
-      <div class="badge" id="qBadge" style="position:static;margin-bottom:8px"></div>
-      <h2 id="qName"></h2>
-      <label>Ингредиенты (по одному в строке, с объёмом, например: «Водка 20 мл»)</label>
-      <textarea id="qAnswer" placeholder="Водка 20 мл&#10;Гренадин&#10;..."></textarea>
-      <div class="row" style="margin-top:12px">
-        <button class="primary" onclick="checkQuiz()">Проверить</button>
-        <button onclick="nextQuiz()">Другой</button>
-      </div>
-      <div class="result hidden" id="qResult"></div>
-    </div>
-  </div>
-
   <!-- List / editor -->
   <div id="view-list" class="hidden">
-    <button class="primary" onclick="openEditor()" style="margin-bottom:12px">＋ Добавить рецепт</button>
+    <div class="row" style="margin-bottom:12px">
+      <button class="primary" onclick="openEditor()">＋ Добавить рецепт</button>
+      <button onclick="toggleIngManager()">⚙ Ингредиенты</button>
+      <button onclick="toggleGlassManager()">⚙ Посуда</button>
+    </div>
+
+    <div id="ingManager" class="quiz hidden" style="margin-bottom:14px">
+      <div id="ingManagerList"></div>
+      <div id="ingEditor" class="hidden" style="margin-top:12px;border-top:1px solid #3a322c;padding-top:12px">
+        <div class="sect" id="ingEditorTitle">Редактировать ингредиент</div>
+        <label>Название</label><input type="text" id="ieName" oninput="updateIngPreview()">
+        <label>Тип</label>
+        <select id="ieType" onchange="updateIngPreview()">
+          <option value="pill">Алкогольная основа (плашка)</option>
+          <option value="heart">Ликёр / вермут (сердечко)</option>
+          <option value="circle">Вода / сок (кружок)</option>
+          <option value="outline">Сироп (контур)</option>
+          <option value="tri">Добавка (треугольник)</option>
+        </select>
+        <div class="row">
+          <div><label>Цвет</label><input type="color" id="ieColor" value="#ff8800" oninput="updateIngPreview()"></div>
+          <div><label>Emoji (не обяз.)</label><input type="text" id="ieEmoji" maxlength="4" oninput="updateIngPreview()"></div>
+        </div>
+        <label style="display:flex;align-items:center;gap:6px;margin-top:12px">
+          <input type="checkbox" id="ieSteam" style="width:auto" onchange="updateIngPreview()"> Пар (для горячего напитка)
+        </label>
+        <div class="result" id="iePreview" style="margin-top:10px"><div class="ing-row"><div class="ing-left"><span class="pill" style="background:#d9cafe;color:#111;border-color:#d9cafe">Самбука</span></div></div></div>
+        <div class="row" style="margin-top:12px">
+          <button class="primary" onclick="saveIngredient()">Сохранить</button>
+          <button onclick="closeIngEditor()">Отмена</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="glassManager" class="quiz hidden" style="margin-bottom:14px">
+      <div class="sect" style="margin-top:0">Кадры (стекло)</div>
+      <div id="glassManagerKadry"></div>
+      <div class="row" style="margin-top:8px;margin-bottom:16px">
+        <input type="text" id="newGlassKadry" placeholder="Новый бокал (например, Хайбол)">
+        <button class="ghost" onclick="addGlass('kadry')">＋ Добавить</button>
+      </div>
+
+      <div class="sect">Сердце (бумага / пластик)</div>
+      <div id="glassManagerSerdtse"></div>
+      <div class="row" style="margin-top:8px">
+        <input type="text" id="newGlassSerdtse" placeholder="Новый бокал (например, Красный 0.5)">
+        <button class="ghost" onclick="addGlass('serdtse')">＋ Добавить</button>
+      </div>
+    </div>
+
     <div id="editor" class="quiz hidden" style="margin-bottom:14px">
-      <input type="hidden" id="eId">
+      <input type="hidden" id="eId" value="25">
       <label>Название</label><input type="text" id="eName">
       <label>Категория</label>
       <select id="eCat">
@@ -231,9 +313,20 @@
       <label>Ингредиенты</label>
       <div id="eIngBox"></div>
       <button class="ghost" style="margin-top:8px" onclick="addIngRow()">＋ Ингредиент</button>
+
+      <label style="margin-top:16px">Схема слоёв (для шотов, снизу вверх)</label>
+      <div id="eLayerBox"></div>
+      <button class="ghost" style="margin-top:8px" onclick="addLayerRow()">＋ Слой</button>
+
       <div class="row">
-        <div><label>Бокал</label><input type="text" id="eGlass"></div>
-        <div><label>Сердце (замена бокала)</label><input type="text" id="eHeart"></div>
+        <div>
+          <label>Посуда «Кадры» (стекло)</label>
+          <select id="eGlassKadry"><option value="">—</option><option value="Хайбол">Хайбол</option><option value="Рокс">Рокс</option><option value="Стеклянный шот">Стеклянный шот</option><option value="6 стеклянных шотов" selected="">6 стеклянных шотов</option><option value="Бокал для шампанского">Бокал для шампанского</option></select>
+        </div>
+        <div>
+          <label>Посуда «Сердце» (бумага)</label>
+          <select id="eGlassSerdtse"><option value="">—</option><option value="Красный 0.5">Красный 0.5</option><option value="Чёрный 0.2">Чёрный 0.2</option><option value="Прозрачный пластиковый">Прозрачный пластиковый</option><option value="Без посуды">Без посуды</option></select>
+        </div>
       </div>
       <div class="row">
         <div><label>Метод</label><input type="text" id="eMethod" placeholder="билд / шейк / слои"></div>
@@ -247,8 +340,10 @@
         <button onclick="closeEditor()">Отмена</button>
       </div>
     </div>
+
     <div id="listBox"></div>
     <div class="footer">
+      <button class="ghost" onclick="downloadHTML()">💾 Скачать HTML</button>
       <button class="ghost" onclick="exportData()">Экспорт</button>
       <button class="ghost" onclick="document.getElementById('imp').click()">Импорт</button>
       <input type="file" id="imp" accept=".json" class="hidden" onchange="importData(event)">
@@ -257,28 +352,48 @@
   </div>
 </div>
 
+<div class="overlay hidden" id="congrats">
+  <div class="modal">
+    <div class="emoji">🎉</div>
+    <h2>Поздравляю!</h2>
+    <p>Ты освоил коктейли блока «<span id="congratsCat"></span>»</p>
+    <div class="actions">
+      <button class="primary" onclick="restartBlock()">Начать заново</button>
+      <button onclick="nextBlock()">Перейти к следующему блоку</button>
+      <button class="ghost" onclick="closeCongrats()">Закрыть</button>
+    </div>
+  </div>
+</div>
+
+<script type="application/json" id="baked-recipes">[{"id":1,"name":"Марсианское яблоко","cat":"long","ing":[{"key":"martiniDry","qty":"40 мл"},{"key":"lemonJ","qty":"на глаз"},{"key":"appleJ","qty":"½"},{"key":"sprite","qty":"½"}],"method":"Билд","ice":"Лёд","garnish":"Долька апельсина","desc":"В бокал со льдом налить вермут, добавить лимонный сок, яблочный сок и спрайт (пополам). Перемешать.","note":"Яблочный сок и спрайт — пополам.","glassKadry":"Хайбол","glassSerdtse":"Красный бокал"},{"id":2,"name":"Текила Санрайз","cat":"long","ing":[{"key":"tequila","qty":"40 мл"},{"key":"orangeJ","qty":"долить"},{"key":"grenadine","qty":"сверху по кругу"}],"method":"Билд","ice":"Лёд","garnish":"Долька апельсина","desc":"В бокал со льдом налить текилу, долить апельсиновый сок. Гренадин влить сверху по кругу.","note":"Гренадин — сверху, по кругу (не мешать, чтобы был «рассвет»).","glassKadry":"Хайбол","glassSerdtse":"Красный бокал"},{"id":3,"name":"Голубая Лагуна","cat":"long","ing":[{"key":"vodka","qty":"40 мл"},{"key":"sprite","qty":"долить"},{"key":"blueCur","qty":"на глаз"}],"method":"Билд","ice":"Лёд","garnish":"Долька лимона","desc":"В бокал со льдом налить водку, сироп блю кюрасао, долить спрайтом. Перемешать.","note":"","glassKadry":"Хайбол","glassSerdtse":"Красный бокал"},{"id":4,"name":"Кровавая Мэри Premium","cat":"long","ing":[{"key":"salt","qty":"щепотка"},{"key":"worcester","qty":"на глаз"},{"key":"tabasco","qty":"на глаз"},{"key":"lemonJ","qty":"на глаз"},{"key":"vodka","qty":"40 мл"},{"key":"tomatoJ","qty":"долить"}],"method":"Билд","ice":"Лёд","garnish":"Долька лимона","desc":"Сначала в бокал добавить специи: соль, вурчестер, табаско, лимонку. Затем лёд, водка 40 мл, томатный сок. Хорошо перемешать.","note":"Сначала специи, потом всё остальное. Мешать хорошо.","glassKadry":"Хайбол","glassSerdtse":"Красный бокал"},{"id":5,"name":"Апероль Шприц","cat":"long","ing":[{"key":"aperol","qty":"80 мл"},{"key":"sparkling","qty":"80 мл"},{"key":"water","qty":"газ остаток"}],"method":"Билд","ice":"Лёд","garnish":"Долька апельсина","desc":"В бокал со льдом налить апероль и игристое, добавить газированной воды.","note":"Апероль 80 + игристое (брют) 80.","glassKadry":"Хайбол","glassSerdtse":"Красный бокал"},{"id":6,"name":"Пина Колада","cat":"long","ing":[{"key":"rum","qty":"40 мл"},{"key":"pineJ","qty":"на глаз"},{"key":"cream","qty":"на глаз"},{"key":"coconutSyr","qty":"на глаз"}],"method":"Шейк","ice":"1–2 кубика льда в шейкере","garnish":"","desc":"В шейкер положить 1–2 кубика льда. Добавить ром, ананасовый сок, сливки, кокосовый сироп (на глаз, т.к. бокалы разные), взболтать.","note":"Всё, кроме рома — на глаз (в красный бокал нужно больше). Единственный лонг, который готовится в шейкере.","glassKadry":"Хайбол","glassSerdtse":"Красный бокал"},{"id":7,"name":"Лонг Айленд","cat":"long","ing":[{"key":"vodka","qty":"20 мл"},{"key":"tequila","qty":"20 мл"},{"key":"rum","qty":"20 мл"},{"key":"gin","qty":"20 мл"},{"key":"tripleSec","qty":"20 мл"},{"key":"lemonJ","qty":"на глаз"},{"key":"cola","qty":"долить"}],"method":"Билд","ice":"Лёд (можно расколоть до краша)","garnish":"Долька лимона","desc":"В бокал со льдом налить 5 белых по 20 мл: водка, текила, ром, джин, трипл сек. Добавить лимонку, долить колой, перемешать.","note":"«5 белых» — по 20 мл. Лёд можно расколоть до краша, так больше раскрывается вкус.","glassKadry":"Хайбол","glassSerdtse":"Красный бокал"},{"id":8,"name":"Зелёная фея","cat":"long","ing":[{"key":"rum","qty":"20 мл"},{"key":"vodka","qty":"20 мл"},{"key":"tequila","qty":"20 мл"},{"key":"absinthe","qty":"20 мл"},{"key":"lemonJ","qty":"на глаз"},{"key":"energy","qty":"1 банка"}],"method":"Билд","ice":"Лёд","garnish":"Долька лимона","desc":"В бокал со льдом налить по 20 мл рома, водки, текилы и абсента. Добавить лимонку и целую банку энергетика.","note":"Мнемоника: РВоТА — Ром, Водка, о, Текила, Абсент. Все по 20 мл.","glassKadry":"Хайбол","glassSerdtse":"Красный бокал"},{"id":9,"name":"Грог","cat":"hot","ing":[{"key":"dried","qty":"горсть"},{"key":"clove","qty":"по вкусу"},{"key":"cinnamon","qty":"палочка"},{"key":"honey","qty":"по наличию"},{"key":"strawSyr","qty":"на глаз"},{"key":"boiling","qty":"залить"},{"key":"tea","qty":"1 пакетик"},{"key":"rum","qty":"40 мл"},{"key":"orange","qty":"1–2 дольки"}],"method":"Билд","ice":"Без льда (горячий)","garnish":"Дольки апельсина","desc":"В бокал положить сухофрукты, гвоздику, палочку корицы, мёд и клубничный сироп. Залить кипятком, перемешать. Добавить пакетик чёрного чая, ром 40 мл и 1–2 дольки апельсина.","note":"В кассе грог находится в шортах.","glassKadry":"Хайбол или 2 красных бокала","glassSerdtse":"Красный бокал (2 шт.)"},{"id":10,"name":"Мимоза","cat":"short","ing":[{"key":"sparkling","qty":"½"},{"key":"orangeJ","qty":"½"}],"method":"Билд","ice":"БЕЗ ЛЬДА","garnish":"","desc":"Налить пополам игристое и апельсиновый сок.","note":"БЕЗ ЛЬДА. Сок желательно охлаждённый, но мы специально его не охлаждаем (заказывают редко). В стекле можно охладить бокал (чиллинг), но это долго.","glassKadry":"Бокал для шампанского","glassSerdtse":"Маленький прозрачный пластиковый"},{"id":11,"name":"Джин-тоник","cat":"short","ing":[{"key":"gin","qty":"40 мл"},{"key":"tonic","qty":"долить"},{"key":"lemon","qty":"долька"}],"method":"Билд","ice":"2–3 кубика","garnish":"Долька лимона","desc":"В бокал положить лёд, налить джин 40 мл, долить тоником.","note":"","glassKadry":"Рокс","glassSerdtse":"Чёрный 0.2","layerScheme":[]},{"id":12,"name":"Куба либре","cat":"short","ing":[{"key":"rum","qty":"40 мл"},{"key":"cola","qty":"долить"},{"key":"lemon","qty":"долька"}],"method":"Билд","ice":"2–3 кубика","garnish":"Долька лимона","desc":"В бокал положить лёд, налить ром 40 мл, долить колой.","note":"Ром + кола.","glassKadry":"Рокс","glassSerdtse":"Чёрный 0.2","layerScheme":[]},{"id":13,"name":"Виски-кола","cat":"short","ing":[{"key":"whisky","qty":"40 мл"},{"key":"cola","qty":"долить"}],"method":"Билд","ice":"2–3 кубика","garnish":"","desc":"В бокал положить лёд, налить виски 40 мл, долить колой.","note":"","glassKadry":"Рокс","glassSerdtse":"Чёрный 0.2","layerScheme":[]},{"id":14,"name":"Космополитен","cat":"short","ing":[{"key":"vodka","qty":""},{"key":"mors","qty":""},{"key":"tripleSec","qty":""},{"key":"lemonJ","qty":""}],"method":"","ice":"","garnish":"","desc":"В документе рецепт не описан. Состав взят из меню. Уточни у наставника: объёмы, метод и бокал.","note":"⚠ Уточнить у наставника.","glassKadry":"","glassSerdtse":"","layerScheme":[]},{"id":15,"name":"Чёрный русский","cat":"short","ing":[{"key":"vodka","qty":"40 мл"},{"key":"coffeeLiq","qty":"40 мл"}],"method":"Билд","ice":"Много льда","garnish":"","desc":"В бокал положить много льда, налить водку 40 мл и кофейный ликёр 40 мл.","note":"Много льда. В кадрах есть маленькие роксы.","glassKadry":"Рокс","glassSerdtse":"Прозрачный пластиковый","layerScheme":[]},{"id":16,"name":"Белый русский","cat":"short","ing":[{"key":"vodka","qty":"40 мл"},{"key":"coffeeLiq","qty":"40 мл"},{"key":"cream","qty":"сверху"}],"method":"Билд","ice":"Много льда","garnish":"","desc":"Как Чёрный русский: много льда, водка 40 мл, кофейный ликёр 40 мл. Сверху добавить сливки.","note":"Сливки сверху, НЕ МЕШАТЬ: красивый эффект бури в стакане.","glassKadry":"Рокс","glassSerdtse":"Прозрачный пластиковый"},{"id":17,"name":"Негрони","cat":"short","ing":[{"key":"martiniRosso","qty":"40 мл"},{"key":"gin","qty":"40 мл"},{"key":"campari","qty":"40 мл"}],"method":"Билд","ice":"Много льда","garnish":"","desc":"В бокал положить много льда, влить вермут, джин и кампари по 40 мл.","note":"Всё по 40 мл.","glassKadry":"Рокс","glassSerdtse":"Прозрачный пластиковый","layerScheme":[]},{"id":18,"name":"Кровавая Маша","cat":"shot","ing":[{"key":"vodka","qty":"~20 мл"},{"key":"salt","qty":"щепотка"},{"key":"worcester","qty":"на глаз"},{"key":"tabasco","qty":"на глаз"},{"key":"lemonJ","qty":"на глаз"},{"key":"tomatoJ","qty":"чуть выше ½"}],"method":"Слои","ice":"Без льда","garnish":"","desc":"Сначала специи: соль, вурчестер, табаско, лимонка. Перемешать трубочкой. Налить томатный сок чуть выше половины шота. Сверху водка (~20 мл), чтобы получились слои.","note":"Специи → перемешать трубочкой → томатный сок → водка сверху слоем.","layerScheme":[{"color":"#5c0700","pct":5,"label":"Специи"},{"color":"#ff2600","pct":55,"label":"Томатный сок"},{"color":"#ffffff","pct":40,"label":"Водка"}],"glassKadry":"Стеклянный шот","glassSerdtse":""},{"id":19,"name":"Боярский","cat":"shot","ing":[{"key":"vodka","qty":"20 мл (> ½)"},{"key":"grenadine","qty":"по стенке"},{"key":"tabasco","qty":"●●● 2–3 сплеша"}],"method":"Слои","ice":"Без льда","garnish":"","desc":"Налить водки больше половины шота. По стенке аккуратно влить гренадин, чтобы получились слои. Добавить 2–3 сплеша табаско.","note":"Водка 20 мл (я даю чуть больше, ибо это пить невозможно). Гренадин по стенке.","layerScheme":[{"color":"#ffffff","pct":65,"label":"Водка"},{"color":"#3c081b","pct":35,"label":"Гренадин"},{"color":"#ff2600","pct":5,"label":"Табаско"}],"glassKadry":"Стеклянный шот","glassSerdtse":""},{"id":20,"name":"Лечебный","cat":"shot","ing":[{"key":"vodka","qty":"20 мл (> ½)"},{"key":"sugarSyr","qty":"≈15 мл"},{"key":"lemonJ","qty":"≈20 мл"},{"key":"tabasco","qty":"●●● 2–3 сплеша"}],"method":"слои ???","ice":"Без льда","garnish":"","desc":"Налить водку (больше половины шота), добавить сахарный сироп, лимонный сок и 2–3 сплеша табаско.","note":"Водка 20, сироп ~15, лимонка ~20 (примерно).","glassKadry":"Стеклянный шот","glassSerdtse":""},{"id":21,"name":"Абориген","cat":"shot","ing":[{"key":"tripleSec","qty":"20 мл (> ½)"},{"key":"amaretto","qty":"½ остатка"},{"key":"cream_liq","qty":"½ остатка"},{"key":"grenDrop","qty":"💧 капля"}],"method":"Слои","ice":"Без льда","garnish":"","desc":"Налить трипл сек больше половины шота. Остаток — пополам амаретто и сливочный ликёр. Лить аккуратно по стенке, чтобы были слои. Сверху капля гренадина.","note":"Лить аккуратно по стенке, чтобы были слои.","layerScheme":[{"color":"#ffffff","pct":51,"label":"Трипл сек"},{"color":"#b78a5a","pct":21,"label":"Амаретто"},{"color":"#f3e6c9","pct":21,"label":"Сливочный ликёр"},{"color":"#e0262f","pct":7,"label":"Гренадин (капля)"}],"glassKadry":"Стеклянный шот","glassSerdtse":""},{"id":22,"name":"Серебряная пуля","cat":"shot","ing":[{"key":"tequila","qty":"½"},{"key":"coffeeLiq","qty":"½"},{"key":"lemonPulp","qty":"1 шт, посередине"}],"method":"Слои","ice":"Без льда","garnish":"Мякоть лимона","desc":"Кофейный ликёр и текила пополам (текилу можно влить по ложке, чтобы были слои). Берёшь доску, вырезаешь мякоть лимона и кладёшь в шот так, чтобы она зависла посередине.","note":"Текила — получше хаусной (для коктейлей): Сильвер и Чачалака, иначе можно ослепить людей.","layerScheme":[{"color":"#4a2a17","pct":45,"label":"Кофейный ликёр"},{"color":"#f5ec00","pct":10,"label":"Мякоть лимона"},{"color":"#cce8b5","pct":45,"label":"Текила"}],"glassKadry":"Стеклянный шот","glassSerdtse":""},{"id":23,"name":"Красный пёс","cat":"shot","ing":[{"key":"sambuca","qty":"½"},{"key":"tequila","qty":"½"},{"key":"tabasco","qty":"● 1–2 сплеша"}],"method":"Слои","ice":"Без льда","garnish":"","desc":"Самбука и текила пополам (текилу по ложке, как в Серебряной пуле). Добавить 1–2 сплеша табаско.","note":"Текила по ложке — как в Серебряной пуле.","layerScheme":[{"color":"#f6ecd2","pct":47.5,"label":"Самбука"},{"color":"#bfe3b4","pct":47.5,"label":"Текила"},{"color":"#ff2600","pct":5,"label":"Табаско"}],"glassKadry":"Стеклянный шот","glassSerdtse":""},{"id":24,"name":"Скользкий сосок","cat":"shot","ing":[{"key":"sambuca","qty":"20 мл (чуть > ½)"},{"key":"cream_liq","qty":"по стенке"},{"key":"grenDrop","qty":"💧 капля"}],"method":"Слои","ice":"Без льда","garnish":"","desc":"Налить самбуку 20 мл (чуть больше половины шота). Сливочный ликёр Бейлис влить по стенке, чтобы были слои. Сверху капля гренадина.","note":"Бейлис по стенке.","layerScheme":[{"color":"#f1c9fe","pct":55,"label":"Самбука"},{"color":"#f3e6c9","pct":35,"label":"Сливочный ликёр"},{"color":"#e0262f","pct":5,"label":"Гренадин (капля)"}],"glassKadry":"Стеклянный шот","glassSerdtse":""},{"id":25,"name":"Сет шесть боярских","cat":"shot","ing":[{"key":"vodka","qty":"6 × 20 мл"},{"key":"grenadine","qty":"6 × по стенке"},{"key":"tabasco","qty":"6 × ●●●"}],"method":"Слои","ice":"Без льда","garnish":"","desc":"Сет из 6 порций Боярского (рецепт см. «Боярский»). В документе отдельно не описан, состав по меню: водка, сироп, табаско.","note":"Это 6 × Боярский. Готовим по рецепту Боярского.","layerScheme":[{"color":"#ffffff","pct":60,"label":"Водка"},{"color":"#3c081b","pct":35,"label":"Гренадин"},{"color":"#ff2600","pct":5,"label":"Табаско"}],"glassKadry":"6 стеклянных шотов","glassSerdtse":""},{"id":1794013840043,"name":"Сердечная услада","cat":"short","ing":[{"key":"brandy","qty":"40"},{"key":"tripleSec","qty":"25"},{"key":"pineJ","qty":"40"},{"key":"coconutSyr","qty":"15"},{"key":"cream","qty":"25"},{"key":"lemonJ","qty":"15"}],"method":"шейк","ice":"2 кубика","garnish":"","desc":"Два кубика льда в шейкер, все залить и потрясти","note":"","layerScheme":[],"glassKadry":"Рокс","glassSerdtse":"Прозрачный пластиковый"}]</script>
+<script type="application/json" id="baked-catalog">{"vodka":{"name":"Водка","type":"pill","color":"#f5f5f5","text":"#222"},"rum":{"name":"Ром","type":"pill","color":"#f2c94c","text":"#3a2a00"},"tequila":{"name":"Текила","type":"pill","color":"#bfe3b4","text":"#1f3a1a"},"gin":{"name":"Джин","type":"pill","color":"#c0c4c9","text":"#222"},"whisky":{"name":"Виски","type":"pill","color":"#8b5a2b","text":"#fff"},"brandy":{"name":"Бренди","type":"pill","color":"#b87333","text":"#fff"},"absinthe":{"name":"Абсент","type":"pill","color":"#2ee05a","text":"#04260f"},"sambuca":{"name":"Самбука","type":"pill","color":"#d9cafe","text":"#3a3220","emoji":"","mod":""},"sparkling":{"name":"Игристое","type":"pill","color":"#e8cf7a","text":"#3a2e00"},"aperol":{"name":"Апероль","type":"heart","color":"#ff7a1a"},"campari":{"name":"Кампари","type":"heart","color":"#e0262f"},"martiniRosso":{"name":"Мартини россо","type":"heart","color":"#7a1030"},"martiniDry":{"name":"Мартини драй","type":"heart","color":"#fbf6c8"},"tripleSec":{"name":"Трипл сек","type":"heart","color":"#ffffff","emoji":"🍊"},"coffeeLiq":{"name":"Кофейный ликёр","type":"heart","color":"#4a2a17"},"amaretto":{"name":"Амаретто","type":"heart","color":"#b78a5a","emoji":"🌰"},"cream_liq":{"name":"Сливочный ликёр","type":"heart","color":"#f3e6c9"},"water":{"name":"Вода","type":"circle","color":"#4fb3ff","mod":"dot"},"soda":{"name":"Содовая","type":"circle","color":"#4fb3ff"},"tonic":{"name":"Тоник","type":"circle","color":"#f6efa0"},"sprite":{"name":"Спрайт","type":"circle","color":"#9be39a"},"cola":{"name":"Кола","type":"circle","color":"#111111"},"energy":{"name":"Энергетик","type":"circle","color":"#3dff2f"},"orangeJ":{"name":"Апельсиновый сок","type":"circle","color":"#ff9a1f"},"appleJ":{"name":"Яблочный сок","type":"circle","color":"#3fae3f"},"tomatoJ":{"name":"Томатный сок","type":"circle","color":"#e03a1e"},"pineJ":{"name":"Ананасовый сок","type":"circle","color":"#ffd21f"},"lemonJ":{"name":"Лимонный сок","type":"circle","color":"#f4ec2a"},"mors":{"name":"Морс","type":"circle","color":"#a3123f"},"boiling":{"name":"Кипяток","type":"circle","color":"#4fb3ff","mod":"steam"},"grenadine":{"name":"Гренадин","type":"outline","color":"#e0262f"},"sugarSyr":{"name":"Сахарный сироп","type":"outline","color":"#ffffff"},"blueCur":{"name":"Блю кюрасао","type":"outline","color":"#2f7bff"},"coconutSyr":{"name":"Кокосовый сироп","type":"outline","color":"#f3e6c9"},"strawSyr":{"name":"Клубничный сироп","type":"outline","color":"#ff7fa6"},"tabasco":{"name":"Табаско","type":"tri","color":"#e0262f","emoji":"🌶️"},"worcester":{"name":"Вурчестер","type":"tri","color":"#6b3a1d"},"salt":{"name":"Соль","type":"tri","color":"#ffffff"},"cinnamon":{"name":"Корица","type":"tri","color":"#8b4a22"},"clove":{"name":"Гвоздика","type":"tri","color":"#6b3a1d"},"dried":{"name":"Сухофрукты","type":"tri","color":"#5a2a7a","emoji":"🍇"},"honey":{"name":"Мёд","type":"tri","color":"#e0a800","emoji":"🍯"},"lemon":{"name":"Лимон","type":"tri","color":"#f4e23a","emoji":"🍋"},"lime":{"name":"Лайм","type":"tri","color":"#9bd62a","emoji":"🟢"},"orange":{"name":"Апельсин","type":"tri","color":"#ff9a1f","emoji":"🍊"},"lemonPulp":{"name":"Мякоть лимона","type":"tri","color":"#fff1a0","emoji":"🍋"},"cream":{"name":"Сливки","type":"tri","color":"#f7efd8"},"tea":{"name":"Чай (пакетик)","type":"tri","color":"#4a2a17","emoji":"🍵"},"grenDrop":{"name":"Гренадин (капля)","type":"tri","color":"#e0262f","emoji":"💧"},"spices":{"name":"Специи (соль, вурчестер, табаско, лимонка)","type":"tri","color":"#b5482a","emoji":"🌶️"},"other":{"name":"Другое","type":"tri","color":"#8a8178"}}</script>
+<script type="application/json" id="baked-glasses">{"kadry":["Хайбол","Рокс","Стеклянный шот","6 стеклянных шотов","Бокал для шампанского"],"serdtse":["Красный 0.5","Чёрный 0.2","Прозрачный пластиковый","Без посуды"]}</script>
+
 <script>
+/* ====================== КОНСТАНТЫ ====================== */
 const CATS = { all: "Все", long: "Лонги", short: "Шорты", shot: "Шоты", hot: "Горячие" };
 const VOLUME = { long: "330 мл", short: "220 мл", shot: "40 мл", hot: "250 мл" };
+const BLOCK_ORDER = ["long", "short", "shot", "hot"];
+const BLOCK_TITLES = { long: "Лонги", short: "Шорты", shot: "Шоты", hot: "Горячие" };
+const STREAK_TO_LEARN = 3;
 
-/* ====================== КАТАЛОГ ИНГРЕДИЕНТОВ ======================
-   type: pill (крепкий алкоголь, заливка) | heart (ликёры/вермуты)
-         circle (напитки на основе воды)  | outline (сиропы, контур)
-         tri (добавки, треугольник)
-   color: основной цвет; emoji: подпись в иконке; mod: dot / steam для кружков
-*/
-const CATALOG = {
-  /* ---- крепкий алкоголь ---- */
+const RECIPES_KEY = "bar_recipes_v4";
+const PROGRESS_KEY = "bar_progress_v5";
+const CATALOG_KEY = "bar_catalog_v5";
+const GLASSES_KEY = "bar_glasses_v1";
+
+/* ====================== КАТАЛОГ ИНГРЕДИЕНТОВ ====================== */
+const DEFAULT_CATALOG = {
   vodka:   { name: "Водка",   type: "pill", color: "#f5f5f5", text: "#222" },
   rum:     { name: "Ром",     type: "pill", color: "#f2c94c", text: "#3a2a00" },
   tequila: { name: "Текила",  type: "pill", color: "#bfe3b4", text: "#1f3a1a" },
   gin:     { name: "Джин",    type: "pill", color: "#c0c4c9", text: "#222" },
   whisky:  { name: "Виски",   type: "pill", color: "#8b5a2b", text: "#fff" },
+  brandy:  { name: "Бренди",  type: "pill", color: "#b87333", text: "#fff" },
   absinthe:{ name: "Абсент",  type: "pill", color: "#2ee05a", text: "#04260f" },
   sambuca: { name: "Самбука", type: "pill", color: "#f6ecd2", text: "#3a3220" },
   sparkling:{ name: "Игристое", type: "pill", color: "#e8cf7a", text: "#3a2e00" },
 
-  /* ---- ликёры и вермуты (сердечки) ---- */
   aperol:   { name: "Апероль",           type: "heart", color: "#ff7a1a" },
   campari:  { name: "Кампари",           type: "heart", color: "#e0262f" },
   martiniRosso: { name: "Мартини россо", type: "heart", color: "#7a1030" },
@@ -288,8 +403,8 @@ const CATALOG = {
   amaretto: { name: "Амаретто",          type: "heart", color: "#b78a5a", emoji: "🌰" },
   cream_liq:{ name: "Сливочный ликёр",   type: "heart", color: "#f3e6c9" },
 
-  /* ---- напитки на основе воды (кружки) ---- */
-  water:    { name: "Вода",              type: ". вода / содовая", type: "circle", color: "#4fb3ff", mod: "dot" },
+  water:    { name: "Вода",              type: "circle", color: "#4fb3ff", mod: "dot" },
+  soda:     { name: "Содовая",           type: "circle", color: "#4fb3ff" },
   tonic:    { name: "Тоник",             type: "circle", color: "#f6efa0" },
   sprite:   { name: "Спрайт",            type: "circle", color: "#9be39a" },
   cola:     { name: "Кола",              type: "circle", color: "#111111" },
@@ -302,14 +417,12 @@ const CATALOG = {
   mors:     { name: "Морс",              type: "circle", color: "#a3123f" },
   boiling:  { name: "Кипяток",           type: "circle", color: "#4fb3ff", mod: "steam" },
 
-  /* ---- сиропы (контурные плашки) ---- */
   grenadine:{ name: "Гренадин",          type: "outline", color: "#e0262f" },
   sugarSyr: { name: "Сахарный сироп",    type: "outline", color: "#ffffff" },
   blueCur:  { name: "Блю кюрасао",       type: "outline", color: "#2f7bff" },
   coconutSyr:{ name: "Кокосовый сироп",  type: "outline", color: "#f3e6c9" },
   strawSyr: { name: "Клубничный сироп",  type: "outline", color: "#ff7fa6" },
 
-  /* ---- добавки (треугольники) ---- */
   tabasco:  { name: "Табаско",           type: "tri", color: "#e0262f", emoji: "🌶️" },
   worcester:{ name: "Вурчестер",         type: "tri", color: "#6b3a1d" },
   salt:     { name: "Соль",              type: "tri", color: "#ffffff" },
@@ -328,217 +441,310 @@ const CATALOG = {
   other:    { name: "Другое",            type: "tri", color: "#8a8178" }
 };
 
-/* ====================== ХЕЛПЕР ДЛЯ ЗАПИСИ РЕЦЕПТОВ ====================== */
+/* ====================== ПОСУДА ====================== */
+const DEFAULT_GLASSES = {
+  kadry: ["Хайбол", "Рокс", "Стеклянный шот", "6 стеклянных шотов", "Бокал для шампанского"],
+  serdtse: ["Красный 0.5", "Чёрный 0.2", "Прозрачный пластиковый", "Без посуды"]
+};
+
+/* ====================== ХЕЛПЕР ====================== */
 const I = (key, qty) => ({ key, qty: qty || "" });
 
 /* ====================== РЕЦЕПТЫ ====================== */
 const DEFAULT_RECIPES = [
-  /* ================= ЛОНГИ ================= */
   { id: 1, name: "Марсианское яблоко", cat: "long",
     ing: [I("martiniDry","40 мл"), I("lemonJ","на глаз"), I("appleJ","½"), I("sprite","½")],
-    glass: "Хайбол", heart: "Красный бокал", method: "Билд", ice: "Лёд",
+    glassKadry: "Хайбол", glassSerdtse: "Красный 0.5", method: "Билд", ice: "Лёд",
     garnish: "Долька апельсина",
     desc: "В бокал со льдом налить вермут, добавить лимонный сок, яблочный сок и спрайт (пополам). Перемешать.",
     note: "Яблочный сок и спрайт — пополам." },
 
   { id: 2, name: "Текила Санрайз", cat: "long",
     ing: [I("tequila","40 мл"), I("orangeJ","долить"), I("grenadine","сверху по кругу")],
-    glass: "Хайбол", heart: "Красный бокал", method: "Билд", ice: "Лёд",
+    glassKadry: "Хайбол", glassSerdtse: "Красный 0.5", method: "Билд", ice: "Лёд",
     garnish: "Долька апельсина",
     desc: "В бокал со льдом налить текилу, долить апельсиновый сок. Гренадин влить сверху по кругу.",
     note: "Гренадин — сверху, по кругу (не мешать, чтобы был «рассвет»)." },
 
   { id: 3, name: "Голубая Лагуна", cat: "long",
     ing: [I("vodka","40 мл"), I("sprite","долить"), I("blueCur","на глаз")],
-    glass: "Хайбол", heart: "Красный бокал", method: "Билд", ice: "Лёд",
+    glassKadry: "Хайбол", glassSerdtse: "Красный 0.5", method: "Билд", ice: "Лёд",
     garnish: "Долька лимона",
     desc: "В бокал со льдом налить водку, сироп блю кюрасао, долить спрайтом. Перемешать.",
     note: "" },
 
   { id: 4, name: "Кровавая Мэри Premium", cat: "long",
     ing: [I("salt","щепотка"), I("worcester","на глаз"), I("tabasco","на глаз"), I("lemonJ","на глаз"), I("vodka","40 мл"), I("tomatoJ","долить")],
-    glass: "Хайбол", heart: "Красный бокал", method: "Билд", ice: "Лёд",
+    glassKadry: "Хайбол", glassSerdtse: "Красный 0.5", method: "Билд", ice: "Лёд",
     garnish: "Долька лимона",
     desc: "Сначала в бокал добавить специи: соль, вурчестер, табаско, лимонку. Затем лёд, водка 40 мл, томатный сок. Хорошо перемешать.",
     note: "Сначала специи, потом всё остальное. Мешать хорошо." },
 
   { id: 5, name: "Апероль Шприц", cat: "long",
     ing: [I("aperol","80 мл"), I("sparkling","80 мл"), I("soda","долить")],
-    glass: "Хайбол", heart: "Красный бокал", method: "Билд", ice: "Лёд",
+    glassKadry: "Хайбол", glassSerdtse: "Красный 0.5", method: "Билд", ice: "Лёд",
     garnish: "Долька апельсина",
     desc: "В бокал со льдом налить апероль и игристое, добавить газированной воды.",
     note: "Апероль 80 + игристое (брют) 80." },
 
   { id: 6, name: "Пина Колада", cat: "long",
     ing: [I("rum","40 мл"), I("pineJ","на глаз"), I("cream","на глаз"), I("coconutSyr","на глаз")],
-    glass: "Хайбол", heart: "Красный бокал", method: "Шейк", ice: "1–2 кубика льда в шейкере",
+    glassKadry: "Хайбол", glassSerdtse: "Красный 0.5", method: "Шейк", ice: "1–2 кубика льда в шейкере",
     garnish: "",
     desc: "В шейкер положить 1–2 кубика льда. Добавить ром, ананасовый сок, сливки, кокосовый сироп (на глаз, т.к. бокалы разные), взболтать.",
-    note: "Всё, кроме рома — на глаз (в красный бокал нужно больше). Единственный лонг, который готовится в шейкере." },
+    note: "Всё, кроме рома — на глаз. Единственный лонг, который готовится в шейкере." },
 
   { id: 7, name: "Лонг Айленд", cat: "long",
     ing: [I("vodka","20 мл"), I("tequila","20 мл"), I("rum","20 мл"), I("gin","20 мл"), I("tripleSec","20 мл"), I("lemonJ","на глаз"), I("cola","долить")],
-    glass: "Хайбол", heart: "Красный бокал", method: "Билд", ice: "Лёд (можно расколоть до краша)",
+    glassKadry: "Хайбол", glassSerdtse: "Красный 0.5", method: "Билд", ice: "Лёд (можно расколоть до краша)",
     garnish: "Долька лимона",
     desc: "В бокал со льдом налить 5 белых по 20 мл: водка, текила, ром, джин, трипл сек. Добавить лимонку, долить колой, перемешать.",
-    note: "«5 белых» — по 20 мл. Лёд можно расколоть до краша, так больше раскрывается вкус." },
+    note: "«5 белых» — по 20 мл. Лёд можно расколоть до краша." },
 
   { id: 8, name: "Зелёная фея", cat: "long",
     ing: [I("rum","20 мл"), I("vodka","20 мл"), I("tequila","20 мл"), I("absinthe","20 мл"), I("lemonJ","на глаз"), I("energy","1 банка")],
-    glass: "Хайбол", heart: "Красный бокал", method: "Билд", ice: "Лёд",
+    glassKadry: "Хайбол", glassSerdtse: "Красный 0.5", method: "Билд", ice: "Лёд",
     garnish: "Долька лимона",
     desc: "В бокал со льдом налить по 20 мл рома, водки, текилы и абсента. Добавить лимонку и целую банку энергетика.",
-    note: "Мнемоника: РВоТА — Ром, Водка, о, Текила, Абсент. Все по 20 мл." },
+    note: "Мнемоника: РВоТА — Ром, Водка, о, Текила, Абсент." },
 
-  /* ================= ГОРЯЧИЕ ================= */
   { id: 9, name: "Грог", cat: "hot",
     ing: [I("dried","горсть"), I("clove","по вкусу"), I("cinnamon","палочка"), I("honey","по наличию"), I("strawSyr","на глаз"), I("boiling","залить"), I("tea","1 пакетик"), I("rum","40 мл"), I("orange","1–2 дольки")],
-    glass: "Хайбол или 2 красных бокала", heart: "Красный бокал (2 шт.)", method: "Билд", ice: "Без льда (горячий)",
+    glassKadry: "Хайбол", glassSerdtse: "Красный 0.5 (2 шт.)", method: "Билд", ice: "Без льда (горячий)",
     garnish: "Дольки апельсина",
     desc: "В бокал положить сухофрукты, гвоздику, палочку корицы, мёд и клубничный сироп. Залить кипятком, перемешать. Добавить пакетик чёрного чая, ром 40 мл и 1–2 дольки апельсина.",
     note: "В кассе грог находится в шортах." },
 
-  /* ================= ШОРТЫ ================= */
   { id: 10, name: "Мимоза", cat: "short",
     ing: [I("sparkling","½"), I("orangeJ","½")],
-    glass: "Бокал для шампанского", heart: "Маленький прозрачный пластиковый", method: "Билд", ice: "БЕЗ ЛЬДА",
+    glassKadry: "Бокал для шампанского", glassSerdtse: "Прозрачный пластиковый", method: "Билд", ice: "БЕЗ ЛЬДА",
     garnish: "",
     desc: "Налить пополам игристое и апельсиновый сок.",
-    note: "БЕЗ ЛЬДА. Сок желательно охлаждённый, но мы специально его не охлаждаем (заказывают редко). В стекле можно охладить бокал (чиллинг), но это долго." },
+    note: "БЕЗ ЛЬДА. Сок желательно охлаждённый." },
 
   { id: 11, name: "Джин-тоник", cat: "short",
     ing: [I("gin","40 мл"), I("tonic","долить"), I("lemon","долька")],
-    glass: "Рокс", heart: "Маленький чёрный", method: "Билд", ice: "2–3 кубика",
+    glassKadry: "Рокс", glassSerdtse: "Чёрный 0.2", method: "Билд", ice: "2–3 кубика",
     garnish: "Долька лимона",
     desc: "В бокал положить лёд, налить джин 40 мл, долить тоником.",
     note: "" },
 
   { id: 12, name: "Куба либре", cat: "short",
     ing: [I("rum","40 мл"), I("cola","долить"), I("lemon","долька")],
-    glass: "Рокс", heart: "Маленький чёрный", method: "Билд", ice: "2–3 кубика",
+    glassKadry: "Рокс", glassSerdtse: "Чёрный 0.2", method: "Билд", ice: "2–3 кубика",
     garnish: "Долька лимона",
     desc: "В бокал положить лёд, налить ром 40 мл, долить колой.",
     note: "Ром + кола." },
 
   { id: 13, name: "Виски-кола", cat: "short",
     ing: [I("whisky","40 мл"), I("cola","долить")],
-    glass: "Рокс", heart: "Маленький чёрный", method: "Билд", ice: "2–3 кубика",
+    glassKadry: "Рокс", glassSerdtse: "Чёрный 0.2", method: "Билд", ice: "2–3 кубика",
     garnish: "",
     desc: "В бокал положить лёд, налить виски 40 мл, долить колой.",
     note: "" },
 
   { id: 14, name: "Космополитен", cat: "short",
     ing: [I("vodka",""), I("mors",""), I("tripleSec",""), I("lemonJ","")],
-    glass: "", heart: "", method: "", ice: "",
+    glassKadry: "", glassSerdtse: "", method: "", ice: "",
     garnish: "",
     desc: "В документе рецепт не описан. Состав взят из меню. Уточни у наставника: объёмы, метод и бокал.",
     note: "⚠ Уточнить у наставника." },
 
   { id: 15, name: "Чёрный русский", cat: "short",
     ing: [I("vodka","40 мл"), I("coffeeLiq","40 мл")],
-    glass: "Рокс", heart: "Прозрачный пластиковый", method: "Билд", ice: "Много льда",
+    glassKadry: "Рокс", glassSerdtse: "Прозрачный пластиковый", method: "Билд", ice: "Много льда",
     garnish: "",
     desc: "В бокал положить много льда, налить водку 40 мл и кофейный ликёр 40 мл.",
-    note: "Много льда. В кадрах есть маленькие роксы." },
+    note: "Много льда." },
 
   { id: 16, name: "Белый русский", cat: "short",
     ing: [I("vodka","40 мл"), I("coffeeLiq","40 мл"), I("cream","сверху")],
-    glass: "Рокс", heart: "Прозрачный пластиковый", method: "Билд", ice: "Много льда",
+    glassKadry: "Рокс", glassSerdtse: "Прозрачный пластиковый", method: "Билд", ice: "Много льда",
     garnish: "",
     desc: "Как Чёрный русский: много льда, водка 40 мл, кофейный ликёр 40 мл. Сверху добавить сливки.",
-    note: "Сливки сверху, НЕ МЕШАТЬ: красивый эффект бури в стакане." },
+    note: "Сливки сверху, НЕ МЕШАТЬ." },
 
   { id: 17, name: "Негрони", cat: "short",
     ing: [I("martiniRosso","40 мл"), I("gin","40 мл"), I("campari","40 мл")],
-    glass: "Рокс", heart: "Прозрачный пластиковый", method: "Билд", ice: "Много льда",
+    glassKadry: "Рокс", glassSerdtse: "Прозрачный пластиковый", method: "Билд", ice: "Много льда",
     garnish: "",
     desc: "В бокал положить много льда, влить вермут, джин и кампари по 40 мл.",
     note: "Всё по 40 мл." },
 
-  /* ================= ШОТЫ ================= */
-   { id: 18, name: "Кровавая Маша", cat: "shot",
+  { id: 18, name: "Кровавая Маша", cat: "shot",
     ing: [I("salt","щепотка"), I("worcester","на глаз"), I("tabasco","на глаз"), I("lemonJ","на глаз"), I("tomatoJ","чуть выше ½"), I("vodka","~20 мл")],
-    glass: "Стеклянный шот", heart: "", method: "Слои", ice: "Без льда",
+    glassKadry: "Стеклянный шот", glassSerdtse: "", method: "Слои", ice: "Без льда",
     garnish: "",
     desc: "1 слой — специи: соль, вурчестер, табаско, лимонка (перемешать трубочкой). 2 слой — томатный сок чуть выше половины шота. 3 слой — водка сверху (~20 мл).",
-    note: "Сначала специи – соль, вурчестер, табаско, лимонка. Затем томатный сок чуть выше половины шота и сверху водка.",
+    note: "Сначала специи, затем томатный сок и сверху водка.",
     layers: ["spices","tomatoJ","vodka"] },
-
 
   { id: 19, name: "Боярский", cat: "shot",
     ing: [I("vodka","20 мл (> ½)"), I("grenadine","по стенке"), I("tabasco","●●● 2–3 сплеша")],
-    glass: "Стеклянный шот", heart: "", method: "Слои", ice: "Без льда",
+    glassKadry: "Стеклянный шот", glassSerdtse: "", method: "Слои", ice: "Без льда",
     garnish: "",
     desc: "Налить водки больше половины шота. По стенке аккуратно влить гренадин, чтобы получились слои. Добавить 2–3 сплеша табаско.",
-    note: "Водка 20 мл (я даю чуть больше, ибо это пить невозможно). Гренадин по стенке.",
+    note: "Водка 20 мл. Гренадин по стенке.",
     layers: ["grenadine","vodka"] },
 
   { id: 20, name: "Лечебный", cat: "shot",
     ing: [I("vodka","20 мл (> ½)"), I("sugarSyr","≈15 мл"), I("lemonJ","≈20 мл"), I("tabasco","●●● 2–3 сплеша")],
-    glass: "Стеклянный шот", heart: "", method: "Билд", ice: "Без льда",
+    glassKadry: "Стеклянный шот", glassSerdtse: "", method: "Билд", ice: "Без льда",
     garnish: "",
     desc: "Налить водку (больше половины шота), добавить сахарный сироп, лимонный сок и 2–3 сплеша табаско.",
-    note: "Водка 20, сироп ~15, лимонка ~20 (примерно)." },
+    note: "Водка 20, сироп ~15, лимонка ~20." },
 
   { id: 21, name: "Абориген", cat: "shot",
     ing: [I("tripleSec","20 мл (> ½)"), I("amaretto","½ остатка"), I("cream_liq","½ остатка"), I("grenDrop","💧 капля")],
-    glass: "Стеклянный шот", heart: "", method: "Слои", ice: "Без льда",
+    glassKadry: "Стеклянный шот", glassSerdtse: "", method: "Слои", ice: "Без льда",
     garnish: "",
     desc: "Налить трипл сек больше половины шота. Остаток — пополам амаретто и сливочный ликёр. Лить аккуратно по стенке, чтобы были слои. Сверху капля гренадина.",
-    note: "Лить аккуратно по стенке, чтобы были слои.",
+    note: "Лить аккуратно по стенке.",
     layers: ["tripleSec","amaretto","cream_liq","grenDrop"] },
 
   { id: 22, name: "Серебряная пуля", cat: "shot",
     ing: [I("coffeeLiq","½"), I("tequila","½"), I("lemonPulp","1 шт, посередине")],
-    glass: "Стеклянный шот", heart: "", method: "Слои", ice: "Без льда",
+    glassKadry: "Стеклянный шот", glassSerdtse: "", method: "Слои", ice: "Без льда",
     garnish: "Мякоть лимона",
-    desc: "Кофейный ликёр и текила пополам (текилу можно влить по ложке, чтобы были слои). Берёшь доску, вырезаешь мякоть лимона и кладёшь в шот так, чтобы она зависла посередине.",
-    note: "Текила — получше хаусной (для коктейлей): Сильвер и Чачалака, иначе можно ослепить людей.",
+    desc: "Кофейный ликёр и текила пополам (текилу можно влить по ложке). Мякоть лимона положить в шот так, чтобы она зависла посередине.",
+    note: "Текила — получше хаусной: Сильвер.",
     layers: ["coffeeLiq","tequila"] },
 
   { id: 23, name: "Красный пёс", cat: "shot",
     ing: [I("sambuca","½"), I("tequila","½"), I("tabasco","● 1–2 сплеша")],
-    glass: "Стеклянный шот", heart: "", method: "Слои", ice: "Без льда",
+    glassKadry: "Стеклянный шот", glassSerdtse: "", method: "Слои", ice: "Без льда",
     garnish: "",
     desc: "Самбука и текила пополам (текилу по ложке, как в Серебряной пуле). Добавить 1–2 сплеша табаско.",
-    note: "Текила по ложке — как в Серебряной пуле.",
+    note: "Текила по ложке.",
     layers: ["sambuca","tequila"] },
 
   { id: 24, name: "Скользкий сосок", cat: "shot",
     ing: [I("sambuca","20 мл (чуть > ½)"), I("cream_liq","по стенке"), I("grenDrop","💧 капля")],
-    glass: "Стеклянный шот", heart: "", method: "Слои", ice: "Без льда",
+    glassKadry: "Стеклянный шот", glassSerdtse: "", method: "Слои", ice: "Без льда",
     garnish: "",
-    desc: "Налить самбуку 20 мл (чуть больше половины шота). Сливочный ликёр Бейлис влить по стенке, чтобы были слои. Сверху капля гренадина.",
+    desc: "Налить самбуку 20 мл. Сливочный ликёр влить по стенке. Сверху капля гренадина.",
     note: "Бейлис по стенке.",
     layers: ["sambuca","cream_liq","grenDrop"] },
 
   { id: 25, name: "Сет шесть боярских", cat: "shot",
     ing: [I("vodka","6 × 20 мл"), I("grenadine","6 × по стенке"), I("tabasco","6 × ●●●")],
-    glass: "6 стеклянных шотов", heart: "", method: "Слои", ice: "Без льда",
+    glassKadry: "6 стеклянных шотов", glassSerdtse: "", method: "Слои", ice: "Без льда",
     garnish: "",
-    desc: "Сет из 6 порций Боярского (рецепт см. «Боярский»). В документе отдельно не описан, состав по меню: водка, сироп, табаско.",
-    note: "Это 6 × Боярский. Готовим по рецепту Боярского.",
-    layers: ["grenadine","vodka"] }
+    desc: "Сет из 6 порций Боярского. Готовим по рецепту Боярского.",
+    note: "Это 6 × Боярский.",
+    layers: ["grenadine","vodka"] },
+
+  { id: 26, name: "Бренди Баррел", cat: "short",
+    ing: [I("brandy","40 мл"), I("tripleSec","25 мл"), I("pineJ","40 мл"), I("coconutSyr","15 мл"), I("cream","25 мл"), I("lemonJ","15 мл")],
+    glassKadry: "Рокс", glassSerdtse: "", method: "Шейк", ice: "2 кубика льда",
+    garnish: "",
+    desc: "В шейкер положить 2 кубика льда, добавить бренди, трипл сек, ананасовый сок, кокосовый сироп, сливки и лимонный сок. Взболтать и перелить в рокс.",
+    note: "" }
 ];
 
-const STORAGE_KEY = "bar_recipes_v3";
-const PROGRESS_KEY = "bar_progress_v3";
-
-let recipes = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null") || JSON.parse(JSON.stringify(DEFAULT_RECIPES));
-let progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || "{}");
-let cat = "all", mode = "cards", current = null, flipped = false, quizCurrent = null;
-
+/* ====================== ЗАГРУЗКА ====================== */
 const $ = id => document.getElementById(id);
-const save = () => {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(recipes));
-  localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
-};
+function safeParse(s) { try { return s ? JSON.parse(s) : null; } catch { return null; } }
+function getBaked(id) {
+  const el = $(id);
+  const txt = el ? el.textContent.trim() : "";
+  if (!txt) return null;
+  try { return JSON.parse(txt); } catch { return null; }
+}
+
+let CATALOG = (() => {
+  const stored = safeParse(localStorage.getItem(CATALOG_KEY));
+  if (stored) return stored;
+  const baked = getBaked("baked-catalog");
+  if (baked) return baked;
+  return JSON.parse(JSON.stringify(DEFAULT_CATALOG));
+})();
+
+let GLASSES = (() => {
+  const stored = safeParse(localStorage.getItem(GLASSES_KEY));
+  if (stored) return stored;
+  const baked = getBaked("baked-glasses");
+  if (baked) return baked;
+  return JSON.parse(JSON.stringify(DEFAULT_GLASSES));
+})();
+
+let recipes = (() => {
+  const stored = safeParse(localStorage.getItem(RECIPES_KEY)) || safeParse(localStorage.getItem("bar_recipes_v3"));
+  if (stored) return stored;
+  const baked = getBaked("baked-recipes");
+  if (baked) return baked;
+  return JSON.parse(JSON.stringify(DEFAULT_RECIPES));
+})();
+
+let progress = safeParse(localStorage.getItem(PROGRESS_KEY)) || {};
+
+let cat = "all", mode = "study", current = null, flipped = false;
+let editingIngKey = null;
+
+/* ====================== МИГРАЦИИ ====================== */
+function convertLayersToScheme(layers) {
+  const n = layers.length;
+  const raw = layers.map((k, i) => {
+    if (k === "grenDrop") return 6;
+    if (i === 0 && n > 1) return 45;
+    return Math.max(15, 55 / (n - 1 || 1));
+  });
+  const total = raw.reduce((a, b) => a + b, 0) || 1;
+  return layers.map((k, i) => {
+    const c = CATALOG[k] || DEFAULT_CATALOG.other;
+    return {
+      color: c.color || "#888",
+      pct: Math.round(raw[i] / total * 100),
+      label: c.name || k
+    };
+  });
+}
+function migrateRecipe(r) {
+  const rr = { ...r };
+  if (rr.glass !== undefined) { rr.glassKadry = rr.glass; delete rr.glass; }
+  if (rr.heart !== undefined) { rr.glassSerdtse = rr.heart; delete rr.heart; }
+  if (rr.cat === "shot" && Array.isArray(rr.ing)) {
+    const pills = rr.ing.filter(it => CATALOG[it.key] && CATALOG[it.key].type === "pill");
+    const rest = rr.ing.filter(it => !CATALOG[it.key] || CATALOG[it.key].type !== "pill");
+    rr.ing = [...pills, ...rest];
+  }
+  if (!rr.layerScheme && Array.isArray(rr.layers) && rr.layers.length) {
+    rr.layerScheme = convertLayersToScheme(rr.layers);
+    delete rr.layers;
+  }
+  return rr;
+}
+recipes = recipes.map(migrateRecipe);
+
+/* ====================== СОХРАНЕНИЕ ====================== */
+function saveRecipes() { localStorage.setItem(RECIPES_KEY, JSON.stringify(recipes)); }
+function saveCatalog() { localStorage.setItem(CATALOG_KEY, JSON.stringify(CATALOG)); }
+function saveGlasses() { localStorage.setItem(GLASSES_KEY, JSON.stringify(GLASSES)); }
+function saveProgress() { localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress)); }
+function save() { saveRecipes(); saveCatalog(); saveGlasses(); saveProgress(); }
+save();
+
+/* ====================== ХЕЛПЕРЫ ====================== */
 const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const pool = () => recipes.filter(r => cat === "all" || r.cat === cat);
 
+/* ====================== ПРОГРЕСС ====================== */
+function getProgress(id) { return progress[id] || { streak: 0, correct: 0, wrong: 0 }; }
+function isLearned(r) { return getProgress(r.id).streak >= STREAK_TO_LEARN; }
+
+function pickRandom(excludeId) {
+  let p = pool().filter(r => !isLearned(r));
+  if (p.length > 1 && excludeId !== undefined) {
+    const filtered = p.filter(r => r.id !== excludeId);
+    if (filtered.length) p = filtered;
+  }
+  if (!p.length) return null;
+  return p[Math.floor(Math.random() * p.length)];
+}
+
 /* ====================== РЕНДЕР ИНГРЕДИЕНТОВ ====================== */
 function heartSVG(color) {
-  return `<svg viewBox="0 0 24 22"><path d="M12 21s-9-5.8-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.200-9 12-9 12z" fill="${color}" stroke="rgba(255,255,255,.35)" stroke-width="1.2"/></svg>`;
+  return `<svg viewBox="0 0 24 22"><path d="M12 21s-9-5.8-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.2-9 12-9 12z" fill="${color}" stroke="rgba(255,255,255,.35)" stroke-width="1.2"/></svg>`;
 }
 function triSVG(color) {
   return `<svg viewBox="0 0 24 22"><path d="M12 2 L22 20 L2 20 Z" fill="${color}" stroke="rgba(255,255,255,.35)" stroke-width="1.2" stroke-linejoin="round"/></svg>`;
@@ -546,7 +752,8 @@ function triSVG(color) {
 
 function renderIng(item) {
   const c = CATALOG[item.key] || CATALOG.other;
-  const label = CATALOG[item.key] ? c.name : (item.label || "Другое");
+  let label = c.name;
+  if (item.label && (item.key === "other" || !CATALOG[item.key])) label = item.label;
   const qty = item.qty ? `<span class="qty">${esc(item.qty)}</span>` : "";
   let left = "";
   switch (c.type) {
@@ -573,31 +780,50 @@ function renderIngList(r) {
 }
 
 /* ====================== СХЕМА СЛОЁВ ====================== */
-function layerColor(key) {
-  const c = CATALOG[key] || CATALOG.other;
-  return c.color;
-}
-function renderLayers(r) {
-  if (!r.layers || !r.layers.length) return "";
-  // слои снизу вверх: tripleSec(>1/2), amaretto, cream_liq... Высоты условные
-  const n = r.layers.length;
-  const heights = r.layers.map((k, i) => {
-    if (k === "grenDrop") return 6;
-    if (i === 0 && n > 1) return 45;
-    return Math.max(15, Math.floor(55 / (n - 1 || 1)));
-  });
-  const total = heights.reduce((a,b)=>a+b,0);
-  const blocks = r.layers.map((k, i) =>
-    `<div style="height:${heights[i]/total*100}%;background:${layerColor(k)}"></div>`).join("");
-  const legend = r.layers.map((k, i) => {
-    const c = CATALOG[k] || CATALOG.other;
-    return `${i+1}. <span class="dot" style="background:${c.color}"></span>${esc(c.name)}`;
+function renderLayerScheme(r) {
+  if (!r.layerScheme || !r.layerScheme.length) return "";
+  const total = r.layerScheme.reduce((a, s) => a + (Number(s.pct) || 0), 0) || 1;
+  
+  // Рисуем стакан (в коде он заполняется снизу вверх благодаря flex-direction: column-reverse)
+  const blocks = r.layerScheme.map(s => {
+    const h = (Number(s.pct) || 0) / total * 100;
+    const border = (Number(s.pct) || 0) < 5 ? "border-top:1px solid rgba(255,255,255,.2);" : "";
+    return `<div style="height:${h}%;background:${s.color};${border}"></div>`;
+  }).join("");
+  
+  // Легенду разворачиваем, чтобы она читалась сверху вниз (как и сам стакан)
+  const legend = [...r.layerScheme].reverse().map((s, i) => {
+    const num = r.layerScheme.length - i;
+    return `${num}. <span class="dot" style="background:${s.color}"></span>${esc(s.label)} — ${s.pct}%`;
   }).join("<br>");
-  return `<div class="sect">Слои (снизу вверх)</div>
+  
+  return `<div class="sect">Схема слоёв (сверху вниз)</div>
     <div class="layers-wrap">
       <div class="shot-glass">${blocks}</div>
       <div class="layer-legend">${legend}</div>
     </div>`;
+}
+
+/* ====================== ПОЛНЫЙ РЕЦЕПТ ====================== */
+function fullRecipeHTML(r) {
+  const chips = [];
+  if (r.glassKadry) chips.push(`<span class="chip kadry">🍷 Кадры: ${esc(r.glassKadry)}</span>`);
+  if (r.glassSerdtse) chips.push(`<span class="chip serdtse">🥤 Сердце: ${esc(r.glassSerdtse)}</span>`);
+  if (r.method) chips.push(`<span class="chip">🔧 ${esc(r.method)}</span>`);
+  if (r.ice) chips.push(`<span class="chip">🧊 ${esc(r.ice)}</span>`);
+  if (r.garnish) chips.push(`<span class="chip">🍋 ${esc(r.garnish)}</span>`);
+  
+  return `
+    <h2 style="font-size:24px;margin:14px 0 6px">${esc(r.name)}</h2>
+    <div class="sect">Состав</div>
+    ${renderIngList(r)}
+    ${renderLayerScheme(r)}
+    <div class="sect">Подача</div>
+    <div class="serve">${chips.join("") || '<span class="meta">—</span>'}</div>
+    <div class="sect">Приготовление</div>
+    <p>${esc(r.desc||"—")}</p>
+    ${r.note ? `<div class="note">💡 ${esc(r.note)}</div>` : ""}
+  `;
 }
 
 /* ====================== ЛЕГЕНДА ====================== */
@@ -606,7 +832,7 @@ function renderLegend() {
   return `
   <b>Как читать карточку:</b>
   <div style="margin-top:8px">
-    <div class="legend-row">${sample("vodka")} — крепкий алкоголь (заливка)</div>
+    <div class="legend-row">${sample("vodka")} — алкогольная основа (заливка)</div>
     <div class="legend-row">${sample("aperol")} — ликёры и вермуты (сердечко)</div>
     <div class="legend-row">${sample("cola")} — вода, газировки, соки (кружок)</div>
     <div class="legend-row">${sample("grenadine")} — сиропы (контур)</div>
@@ -624,126 +850,117 @@ function toggleLegend() {
 function renderTabs() {
   $("cats").innerHTML = Object.entries(CATS).map(([k, v]) =>
     `<button data-cat="${k}" class="${k===cat?'active':''}">${v}</button>`).join("");
-  document.querySelectorAll("#cats button").forEach(b => b.onclick = () => { cat = b.dataset.cat; current = null; renderAll(); });
+  document.querySelectorAll("#cats button").forEach(b => b.onclick = () => {
+    cat = b.dataset.cat; current = null; flipped = false; renderAll();
+  });
   document.querySelectorAll("#modes button").forEach(b => {
     b.classList.toggle("active", b.dataset.mode === mode);
     b.onclick = () => { mode = b.dataset.mode; renderAll(); };
   });
 }
-function score(r) {
-  const p = progress[r.id] || { known: 0, unknown: 0 };
-  return p.known - p.unknown * 2;
-}
-function isLearned(r) { return score(r) >= 2; }
 function renderStats() {
   const p = pool();
   const learned = p.filter(isLearned).length;
   $("stats").textContent = `Выучено: ${learned} из ${p.length}`;
   $("bar").style.width = p.length ? (learned / p.length * 100) + "%" : "0";
 }
-function pickRandom(excludeId) {
-  let p = pool();
-  if (p.length > 1) p = p.filter(r => r.id !== excludeId);
-  if (!p.length) return null;
-  const weights = p.map(r => Math.max(1, 5 - score(r)));
-  const total = weights.reduce((a, b) => a + b, 0);
-  let x = Math.random() * total;
-  for (let i = 0; i < p.length; i++) { x -= weights[i]; if (x <= 0) return p[i]; }
-  return p[0];
+
+/* ====================== ИЗУЧИТЬ РЕЦЕПТЫ ====================== */
+function renderStudy() {
+  const items = pool();
+  if (!items.length) { $("studyList").innerHTML = "<p style='color:var(--muted)'>Нет рецептов</p>"; return; }
+  $("studyList").innerHTML = items.map(r => `
+    <div class="study-item">
+      <button class="study-header" data-id="${r.id}" onclick="toggleStudy(${r.id})">
+        <span>${esc(r.name)}</span>
+        <span class="study-arrow" id="study-arrow-${r.id}">▾</span>
+      </button>
+      <div class="study-body hidden" id="study-body-${r.id}">
+        ${fullRecipeHTML(r)}
+      </div>
+    </div>
+  `).join("");
+}
+function toggleStudy(id) {
+  const body = $("study-body-" + id);
+  if (!body) return;
+  const hidden = body.classList.toggle("hidden");
+  $("study-arrow-" + id).textContent = hidden ? "▾" : "▴";
 }
 
-/* ====================== КАРТОЧКИ ====================== */
+/* ====================== ПРОВЕРЬ СЕБЯ ====================== */
 function renderCard() {
-  if (!current || !pool().includes(current)) current = pickRandom();
   const c = $("card");
-  if (!current) { c.innerHTML = "<p style='text-align:center'>Нет рецептов в этой категории</p>"; $("cardActions").style.display = "none"; return; }
+  if (!current) current = pickRandom();
+  if (!current) {
+    c.innerHTML = `<div class="badge">Готово</div>
+      <h2 style="text-align:center;font-size:40px;margin:8px 0">🎉</h2>
+      <p style="text-align:center;color:var(--muted)">Все рецепты в этом блоке выучены</p>`;
+    $("cardActions").style.display = "none";
+    return;
+  }
   if (!flipped) {
     c.innerHTML = `<div class="badge">${CATS[current.cat]} · ${VOLUME[current.cat] || ""}</div>
       <h2>${esc(current.name)}</h2>
       <div class="hint">Вспомни состав, затем нажми на карточку</div>`;
     $("cardActions").style.display = "none";
   } else {
-    const r = current;
-    const chips = [];
-    if (r.glass) chips.push(`<span class="chip">🥃 ${esc(r.glass)}</span>`);
-    if (r.heart) chips.push(`<span class="chip heart-chip">❤️ ${esc(r.heart)}</span>`);
-    if (r.method) chips.push(`<span class="chip">🔧 ${esc(r.method)}</span>`);
-    if (r.ice) chips.push(`<span class="chip">🧊 ${esc(r.ice)}</span>`);
-    if (r.garnish) chips.push(`<span class="chip">🍋 ${esc(r.garnish)}</span>`);
-    c.innerHTML = `<div class="badge">${CATS[r.cat]} · ${VOLUME[r.cat] || ""}</div>
-      <h2 style="font-size:24px;margin:14px 0 6px">${esc(r.name)}</h2>
-      <div class="sect">Состав</div>
-      ${renderIngList(r)}
-      ${renderLayers(r)}
-      <div class="sect">Подача</div>
-      <div class="serve">${chips.join("") || '<span class="meta">—</span>'}</div>
-      <div class="sect">Приготовление</div>
-      <p>${esc(r.desc||"—")}</p>
-      ${r.note ? `<div class="note">💡 ${esc(r.note)}</div>` : ""}`;
+    c.innerHTML = `<div class="badge">${CATS[current.cat]} · ${VOLUME[current.cat] || ""}</div>
+      ${fullRecipeHTML(current)}`;
     $("cardActions").style.display = "flex";
   }
 }
 function flip() { if (!current) return; flipped = !flipped; renderCard(); }
+
 function mark(known) {
-  const p = progress[current.id] || { known: 0, unknown: 0 };
-  known ? p.known++ : p.unknown++;
-  progress[current.id] = p; save();
-  flipped = false; current = pickRandom(current.id);
+  if (!current) return;
+  const p = getProgress(current.id);
+  if (known) { p.streak = (p.streak || 0) + 1; p.correct = (p.correct || 0) + 1; }
+  else { p.streak = 0; p.wrong = (p.wrong || 0) + 1; }
+  progress[current.id] = p;
+  save();
+  flipped = false;
+
+  if (cat !== "all" && pool().every(isLearned)) {
+    renderStats();
+    showCongrats(cat);
+    return;
+  }
+  current = pickRandom(current.id);
   renderCard(); renderStats();
 }
+
 function resetProgress() {
   if (confirm("Сбросить весь прогресс?")) { progress = {}; save(); renderAll(); }
 }
 
-/* ====================== ТЕСТ ====================== */
-function nextQuiz() {
-  quizCurrent = pickRandom(quizCurrent && quizCurrent.id);
-  $("qAnswer").value = ""; $("qResult").classList.add("hidden");
-  if (!quizCurrent) { $("qName").textContent = "Нет рецептов"; $("qBadge").textContent = ""; return; }
-  $("qBadge").textContent = CATS[quizCurrent.cat] + " · " + (VOLUME[quizCurrent.cat] || "");
-  $("qName").textContent = quizCurrent.name;
+/* ====================== МОДАЛКА ====================== */
+function showCongrats(catKey) {
+  $("congratsCat").textContent = BLOCK_TITLES[catKey] || CATS[catKey] || catKey;
+  $("congrats").classList.remove("hidden");
 }
-function norm(s) {
-  return s.toLowerCase().replace(/ё/g, "е")
-    .replace(/\([^)]*\)/g, " ")
-    .replace(/[\d\/\.,\-–~≈×●💧½]+\s*(мл|ml|шт|г|гр|листов|капли|капель|сплеша|сплеш)?/g, " ")
-    .replace(/доверху|сверху|долить|по вкусу|на глаз|по стенке|при наличии|капля|сплеши/g, " ")
-    .replace(/[^a-zа-я\s]/g, " ").replace(/\s+/g, " ").trim();
+function closeCongrats() {
+  $("congrats").classList.add("hidden");
+  renderCard();
 }
-function ingText(it) {
-  const c = CATALOG[it.key] || CATALOG.other;
-  return c.name + (it.qty ? " " + it.qty : "");
+function restartBlock() {
+  if (cat === "all") progress = {};
+  else recipes.filter(r => r.cat === cat).forEach(r => { delete progress[r.id]; });
+  save();
+  $("congrats").classList.add("hidden");
+  flipped = false;
+  current = pickRandom();
+  renderAll();
 }
-function checkQuiz() {
-  if (!quizCurrent) return;
-  const user = $("qAnswer").value.split("\n").map(s => s.trim()).filter(Boolean);
-  const real = quizCurrent.ing.map(ingText);
-  const userN = user.map(norm), realN = real.map(norm);
-  const matched = new Set();
-  const found = [], missed = [];
-  realN.forEach((rn, i) => {
-    const idx = userN.findIndex((u, j) => !matched.has(j) && u && rn && (u.includes(rn) || rn.includes(u)));
-    if (idx >= 0) { matched.add(idx); found.push(real[i]); } else missed.push(real[i]);
-  });
-  const extra = user.filter((_, j) => !matched.has(j));
-  let html = "";
-  if (!missed.length && !extra.length) html += "<b class='ok'>✔ Отлично! Все компоненты верны.</b><br>";
-  if (found.length) html += `<div class="ok">Верно: ${found.map(esc).join(", ")}</div>`;
-  if (missed.length) html += `<div class="miss">Пропущено: ${missed.map(esc).join(", ")}</div>`;
-  if (extra.length) html += `<div class="extra">Лишнее: ${extra.map(esc).join(", ")}</div>`;
-  html += `<hr style="border:0;border-top:1px solid #3a322c;margin:10px 0">
-    <b>Правильный рецепт:</b>
-    <div style="margin-top:8px">${renderIngList(quizCurrent)}</div>
-    <br><span style="color:var(--muted)">${esc(quizCurrent.glass||"")}${quizCurrent.heart ? " (сердце: " + esc(quizCurrent.heart) + ")" : ""} · ${esc(quizCurrent.method||"")} · ${esc(quizCurrent.ice||"")}</span>
-    <br>${esc(quizCurrent.desc||"")}
-    ${quizCurrent.note ? `<div class="note">💡 ${esc(quizCurrent.note)}</div>` : ""}`;
-  const p = progress[quizCurrent.id] || { known: 0, unknown: 0 };
-  (!missed.length && !extra.length) ? p.known++ : p.unknown++;
-  progress[quizCurrent.id] = p; save(); renderStats();
-  $("qResult").innerHTML = html; $("qResult").classList.remove("hidden");
+function nextBlock() {
+  const idx = BLOCK_ORDER.indexOf(cat);
+  cat = BLOCK_ORDER[(idx + 1) % BLOCK_ORDER.length];
+  current = null; flipped = false;
+  $("congrats").classList.add("hidden");
+  renderAll();
 }
 
-/* ====================== СПИСОК + РЕДАКТОР ====================== */
+/* ====================== СПИСОК РЕЦЕПТОВ ====================== */
 function renderList() {
   const items = pool();
   $("listBox").innerHTML = items.length ? items.map(r => `
@@ -756,41 +973,79 @@ function renderList() {
     </div>`).join("") : "<p style='color:var(--muted)'>Пусто</p>";
 }
 
+/* ====================== ГРУППЫ ====================== */
 const GROUPS = [
-  ["Крепкий алкоголь", "pill"], ["Ликёры и вермуты", "heart"], ["Вода, газировки, соки", "circle"],
-  ["Сиропы", "outline"], ["Добавки", "tri"]
+  ["Алкогольная основа", "pill"],
+  ["Ликёры и вермуты", "heart"],
+  ["Вода, газировки, соки", "circle"],
+  ["Сиропы", "outline"],
+  ["Добавки", "tri"]
 ];
+
 function optionsHTML(selected) {
   return GROUPS.map(([title, type]) =>
     `<optgroup label="${title}">` +
     Object.entries(CATALOG).filter(([k, v]) => v.type === type && k !== "other")
       .map(([k, v]) => `<option value="${k}" ${k===selected?'selected':''}>${v.name}</option>`).join("") +
-    `</optgroup>`).join("") + `<option value="other" ${selected==="other"?'selected':''}>Другое…</option>`;
+    `</optgroup>`).join("") +
+    `<option value="other" ${selected==="other"?'selected':''}>Другое…</option>`;
 }
+
+function populateGlassSelect(id, type, currentVal) {
+  const list = GLASSES[type] || [];
+  const options = [...new Set([...list, currentVal].filter(Boolean))];
+  $(id).innerHTML = `<option value="">—</option>` + options.map(g => `<option value="${esc(g)}" ${currentVal===g?'selected':''}>${esc(g)}</option>`).join("");
+}
+
+/* ====================== РЕДАКТОР РЕЦЕПТА ====================== */
 function addIngRow(key, qty, label) {
   const row = document.createElement("div");
   row.className = "ed-ing";
   row.innerHTML = `<select>${optionsHTML(key || "vodka")}</select>
     <input type="text" placeholder="кол-во (40 мл, ½, ●●●...)" value="${esc(qty||'')}">
-    <button class="ghost" onclick="this.parentElement.remove()">✕</button>`;
+    <button class="ghost" type="button" onclick="this.parentElement.remove()">✕</button>`;
   row.dataset.label = label || "";
   $("eIngBox").appendChild(row);
 }
+function addLayerRow(s) {
+  s = s || {};
+  const row = document.createElement("div");
+  row.className = "ed-layer";
+  row.innerHTML = `
+    <input type="color" value="${s.color || '#ffffff'}">
+    <input type="number" min="0" max="100" placeholder="%" value="${s.pct != null ? s.pct : ''}">
+    <input type="text" placeholder="Подпись слоя" value="${esc(s.label || '')}">
+    <button class="ghost" type="button" onclick="this.parentElement.remove()">✕</button>
+  `;
+  $("eLayerBox").appendChild(row);
+}
+
 function openEditor(id) {
-  const r = recipes.find(x => x.id === id) || { name:"", cat: cat==="all"?"long":cat, ing:[], glass:"", heart:"", method:"", ice:"", garnish:"", desc:"", note:"" };
+  const r = recipes.find(x => x.id === id) || {
+    name:"", cat: cat==="all"?"long":cat, ing:[],
+    glassKadry:"", glassSerdtse:"", method:"", ice:"", garnish:"", desc:"", note:"", layerScheme:[]
+  };
   $("eId").value = id || "";
   $("eName").value = r.name; $("eCat").value = r.cat;
   $("eIngBox").innerHTML = "";
   (r.ing.length ? r.ing : [I("vodka","")]).forEach(it => addIngRow(it.key, it.qty, it.label));
-  $("eGlass").value = r.glass || ""; $("eHeart").value = r.heart || "";
+  $("eLayerBox").innerHTML = "";
+  let scheme = r.layerScheme;
+  if (!scheme && r.layers) scheme = convertLayersToScheme(r.layers);
+  if (scheme) scheme.forEach(s => addLayerRow(s));
+  
+  populateGlassSelect("eGlassKadry", "kadry", r.glassKadry);
+  populateGlassSelect("eGlassSerdtse", "serdtse", r.glassSerdtse);
+  
   $("eMethod").value = r.method || ""; $("eIce").value = r.ice || "";
   $("eGarnish").value = r.garnish || ""; $("eDesc").value = r.desc || ""; $("eNote").value = r.note || "";
   $("editor").classList.remove("hidden"); $("editor").scrollIntoView({behavior:"smooth"});
 }
 function closeEditor() { $("editor").classList.add("hidden"); }
+
 function saveRecipe() {
   const name = $("eName").value.trim();
-  const ing = [...document.querySelectorAll("#eIngBox .ed-ing")].map(row => {
+  let ing = [...document.querySelectorAll("#eIngBox .ed-ing")].map(row => {
     const key = row.querySelector("select").value;
     const qty = row.querySelector("input").value.trim();
     const item = { key, qty };
@@ -801,52 +1056,283 @@ function saveRecipe() {
     return item;
   });
   if (!name || !ing.length) { alert("Нужны название и хотя бы один ингредиент"); return; }
-  const data = { name, cat: $("eCat").value, ing,
-    glass: $("eGlass").value.trim(), heart: $("eHeart").value.trim(),
+  const catVal = $("eCat").value;
+  if (catVal === "shot") {
+    const pills = ing.filter(it => CATALOG[it.key] && CATALOG[it.key].type === "pill");
+    const rest = ing.filter(it => !CATALOG[it.key] || CATALOG[it.key].type !== "pill");
+    ing = [...pills, ...rest];
+  }
+  const layerScheme = [...document.querySelectorAll("#eLayerBox .ed-layer")].map(row => ({
+    color: row.querySelector("input[type=color]").value,
+    pct: Number(row.querySelector("input[type=number]").value) || 0,
+    label: row.querySelector("input[type=text]").value.trim()
+  })).filter(s => s.label || s.pct > 0);
+  
+  const data = {
+    name, cat: catVal, ing,
+    glassKadry: $("eGlassKadry").value.trim(), 
+    glassSerdtse: $("eGlassSerdtse").value.trim(),
     method: $("eMethod").value.trim(), ice: $("eIce").value.trim(),
-    garnish: $("eGarnish").value.trim(), desc: $("eDesc").value.trim(), note: $("eNote").value.trim() };
+    garnish: $("eGarnish").value.trim(), desc: $("eDesc").value.trim(), note: $("eNote").value.trim(),
+    layerScheme
+  };
   const id = +$("eId").value;
   if (id) {
     const old = recipes.find(r => r.id === id);
     Object.assign(old, data);
-  } else recipes.push({ id: Date.now(), ...data });
-  save(); closeEditor(); renderAll();
+    delete old.layers;
+  } else {
+    recipes.push({ id: Date.now(), ...data });
+  }
+  saveRecipes();
+  closeEditor();
+  renderAll();
 }
 function delRecipe(id) {
   if (!confirm("Удалить рецепт?")) return;
-  recipes = recipes.filter(r => r.id !== id); delete progress[id];
+  recipes = recipes.filter(r => r.id !== id);
+  delete progress[id];
   if (current && current.id === id) current = null;
-  save(); renderAll();
+  saveRecipes(); saveProgress(); renderAll();
 }
 function resetRecipes() {
-  if (confirm("Вернуть исходное меню? Твои правки и новые рецепты пропадут.")) {
-    recipes = JSON.parse(JSON.stringify(DEFAULT_RECIPES)); progress = {}; save(); renderAll();
-  }
+  if (!confirm("Вернуть исходное меню? Твои правки и новые рецепты пропадут.")) return;
+  const baked = getBaked("baked-recipes");
+  recipes = JSON.parse(JSON.stringify(baked || DEFAULT_RECIPES)).map(migrateRecipe);
+  progress = {};
+  saveRecipes(); saveProgress(); renderAll();
 }
+
+/* ====================== МЕНЕДЖЕР ИНГРЕДИЕНТОВ ====================== */
+function toggleIngManager() {
+  const m = $("ingManager");
+  m.classList.toggle("hidden");
+  if (!m.classList.contains("hidden")) { $("glassManager").classList.add("hidden"); renderIngManager(); }
+}
+
+function renderIngManager() {
+  let html = `<button class="primary" onclick="openIngEditor()" style="margin-bottom:12px">＋ Новый ингредиент</button>`;
+  GROUPS.forEach(([title, type]) => {
+    const entries = Object.entries(CATALOG).filter(([k, v]) => v.type === type && k !== "other");
+    html += `<div class="sect">${title}</div>`;
+    if (!entries.length) { html += `<div class="meta" style="color:var(--muted)">Пока пусто</div>`; return; }
+    html += `<div class="ing-list">`;
+    entries.forEach(([key]) => {
+      html += `<div class="im-row">
+        <div class="ing-left">${renderIng({ key })}</div>
+        <div class="btns">
+          <button onclick="openIngEditor('${key}')">✎</button>
+          <button onclick="deleteIngredient('${key}')">✕</button>
+        </div>
+      </div>`;
+    });
+    html += `</div>`;
+  });
+  $("ingManagerList").innerHTML = html;
+}
+
+function openIngEditor(key) {
+  editingIngKey = key || null;
+  const c = key ? CATALOG[key] : { name: "", type: "pill", color: "#ff8800", emoji: "", mod: "" };
+  $("ieName").value = c.name || "";
+  $("ieType").value = c.type || "pill";
+  $("ieColor").value = (c.color && c.color.startsWith("#")) ? c.color : "#ff8800";
+  $("ieEmoji").value = c.emoji || "";
+  $("ieSteam").checked = c.mod === "steam";
+  $("ingEditorTitle").textContent = key ? "Редактировать ингредиент" : "Новый ингредиент";
+  $("iePreview").innerHTML = key ? renderIng({ key }) : "";
+  $("ingEditor").classList.remove("hidden");
+  $("ingEditor").scrollIntoView({behavior:"smooth"});
+  if (!key) updateIngPreview();
+}
+function closeIngEditor() {
+  editingIngKey = null;
+  $("ingEditor").classList.add("hidden");
+}
+function updateIngPreview() {
+  const tmp = {
+    name: $("ieName").value || "Ингредиент",
+    type: $("ieType").value,
+    color: $("ieColor").value,
+    emoji: $("ieEmoji").value.trim(),
+    mod: $("ieSteam").checked ? "steam" : ""
+  };
+  const fakeKey = "__preview__";
+  const saved = CATALOG[fakeKey];
+  CATALOG[fakeKey] = tmp;
+  $("iePreview").innerHTML = renderIng({ key: fakeKey });
+  if (saved) CATALOG[fakeKey] = saved; else delete CATALOG[fakeKey];
+}
+function saveIngredient() {
+  const name = $("ieName").value.trim();
+  if (!name) { alert("Введите название"); return; }
+  const data = {
+    name,
+    type: $("ieType").value,
+    color: $("ieColor").value,
+    emoji: $("ieEmoji").value.trim(),
+    mod: $("ieSteam").checked ? "steam" : ""
+  };
+  if (editingIngKey) {
+    CATALOG[editingIngKey] = { ...CATALOG[editingIngKey], ...data };
+  } else {
+    const key = "ing_" + Date.now().toString(36);
+    CATALOG[key] = data;
+  }
+  saveCatalog();
+  closeIngEditor();
+  renderIngManager();
+  renderAll();
+}
+function deleteIngredient(key) {
+  if (key === "other") return;
+  const c = CATALOG[key];
+  if (!c) return;
+  const used = recipes.filter(r => r.ing.some(it => it.key === key)).length;
+  let msg = "Удалить ингредиент?";
+  if (used) msg = `Используется в ${used} рецептах. Удалить и заменить на «Другое»?`;
+  if (!confirm(msg)) return;
+  if (used) {
+    recipes.forEach(r => {
+      r.ing.forEach(it => {
+        if (it.key === key) { it.key = "other"; it.label = c.name; }
+      });
+    });
+    saveRecipes();
+  }
+  delete CATALOG[key];
+  saveCatalog();
+  renderIngManager();
+  renderAll();
+}
+
+/* ====================== МЕНЕДЖЕР ПОСУДЫ ====================== */
+function toggleGlassManager() {
+  const m = $("glassManager");
+  m.classList.toggle("hidden");
+  if (!m.classList.contains("hidden")) { $("ingManager").classList.add("hidden"); renderGlassManager(); }
+}
+
+function renderGlassManager() {
+  let htmlK = "";
+  GLASSES.kadry.forEach((g, i) => {
+    htmlK += `<div class="im-row"><div>${esc(g)}</div><div class="btns"><button onclick="delGlass('kadry', ${i})">✕</button></div></div>`;
+  });
+  if (!htmlK) htmlK = "<p style='color:var(--muted)'>Пусто</p>";
+  $("glassManagerKadry").innerHTML = htmlK;
+
+  let htmlS = "";
+  GLASSES.serdtse.forEach((g, i) => {
+    htmlS += `<div class="im-row"><div>${esc(g)}</div><div class="btns"><button onclick="delGlass('serdtse', ${i})">✕</button></div></div>`;
+  });
+  if (!htmlS) htmlS = "<p style='color:var(--muted)'>Пусто</p>";
+  $("glassManagerSerdtse").innerHTML = htmlS;
+}
+
+function addGlass(type) {
+  const inp = type === "kadry" ? $("newGlassKadry") : $("newGlassSerdtse");
+  const val = inp.value.trim();
+  if (!val) return;
+  if (!GLASSES[type].includes(val)) {
+    GLASSES[type].push(val);
+    saveGlasses();
+  }
+  inp.value = "";
+  renderGlassManager();
+}
+
+function delGlass(type, index) {
+  const val = GLASSES[type][index];
+  if (!confirm(`Удалить «${val}» из списка? Рецепты, где оно использовалось, останутся без изменений, но в выпадающем списке его больше не будет.`)) return;
+  GLASSES[type].splice(index, 1);
+  saveGlasses();
+  renderGlassManager();
+}
+
+/* ====================== ИМПОРТ / ЭКСПОРТ ====================== */
 function exportData() {
-  const blob = new Blob([JSON.stringify(recipes, null, 2)], { type: "application/json" });
+  const data = { recipes, catalog: CATALOG, glasses: GLASSES };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
   const a = document.createElement("a"); a.href = URL.createObjectURL(blob);
-  a.download = "recipes.json"; a.click();
+  a.download = "bar-trainer-data.json"; a.click();
 }
 function importData(e) {
   const f = e.target.files[0]; if (!f) return;
   const rd = new FileReader();
   rd.onload = () => {
-    try { const d = JSON.parse(rd.result); if (!Array.isArray(d)) throw 0;
-      recipes = d; save(); renderAll();
+    try {
+      const d = JSON.parse(rd.result);
+      if (Array.isArray(d)) {
+        recipes = d.map(migrateRecipe);
+      } else if (d && Array.isArray(d.recipes)) {
+        recipes = d.recipes.map(migrateRecipe);
+        if (d.catalog && typeof d.catalog === "object") CATALOG = d.catalog;
+        if (d.glasses && typeof d.glasses === "object") GLASSES = d.glasses;
+      } else throw 0;
+      save(); renderAll();
+      alert("Импортировано");
     } catch { alert("Не удалось прочитать файл"); }
   };
   rd.readAsText(f);
+  e.target.value = "";
 }
 
+/* ====================== СОХРАНЕНИЕ В HTML ====================== */
+function downloadHTML() {
+  const clone = document.documentElement.cloneNode(true);
+
+  const bakedR = clone.querySelector("#baked-recipes");
+  const bakedC = clone.querySelector("#baked-catalog");
+  const bakedG = clone.querySelector("#baked-glasses");
+  if (bakedR) bakedR.textContent = JSON.stringify(recipes).replace(/<\//g, "<\\/");
+  if (bakedC) bakedC.textContent = JSON.stringify(CATALOG).replace(/<\//g, "<\\/");
+  if (bakedG) bakedG.textContent = JSON.stringify(GLASSES).replace(/<\//g, "<\\/");
+
+  ["cats","card","listBox","ingManagerList","glassManagerKadry","glassManagerSerdtse","legend","studyList","eIngBox","eLayerBox","stats"].forEach(id => {
+    const el = clone.querySelector("#" + id); if (el) el.innerHTML = "";
+  });
+  const bar = clone.querySelector("#bar"); if (bar) bar.style.width = "0";
+  const cardActions = clone.querySelector("#cardActions"); if (cardActions) cardActions.style.display = "none";
+
+  ["editor","ingEditor","congrats","legend","ingManager","glassManager"].forEach(id => {
+    const el = clone.querySelector("#" + id); if (el) el.classList.add("hidden");
+  });
+
+  clone.querySelector("#view-study").classList.remove("hidden");
+  clone.querySelector("#view-cards").classList.add("hidden");
+  clone.querySelector("#view-list").classList.add("hidden");
+  clone.querySelectorAll("#modes button").forEach(b => {
+    b.classList.toggle("active", b.dataset.mode === "study");
+  });
+
+  const html = "<!DOCTYPE html>\n" + clone.outerHTML;
+  const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "bar-trainer.html";
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 3000);
+}
+
+/* ====================== RENDER ALL ====================== */
 function renderAll() {
   renderTabs(); renderStats();
-  ["cards","quiz","list"].forEach(m => $("view-"+m).classList.toggle("hidden", m !== mode));
-  if (mode === "cards") { flipped = false; renderCard(); }
-  if (mode === "quiz") nextQuiz();
-  if (mode === "list") renderList();
+  ["study","cards","list"].forEach(m => $("view-" + m).classList.toggle("hidden", m !== mode));
+  if (mode === "study") renderStudy();
+  if (mode === "cards") {
+    if (!current || !pool().includes(current) || isLearned(current)) {
+      current = pickRandom();
+      flipped = false;
+    }
+    renderCard();
+  }
+  if (mode === "list") {
+    renderList();
+    if (!$("ingManager").classList.contains("hidden")) renderIngManager();
+    if (!$("glassManager").classList.contains("hidden")) renderGlassManager();
+  }
 }
 renderAll();
 </script>
-</body>
-</html>
+
+</body></html>
